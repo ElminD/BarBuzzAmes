@@ -1,4 +1,3 @@
-import { channel } from 'diagnostics_channel';
 import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -11,7 +10,7 @@ export const connectToDatabase = async () => {
     if(!MONGODB_URI) throw new Error('MONGODB_URI is undefined');
 
     cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
-        dbName: 'BarBuzzAmes',
+        dbName: 'cluster0',
         bufferCommands: false,
     })
 
