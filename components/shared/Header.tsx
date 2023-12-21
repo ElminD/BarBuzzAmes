@@ -15,8 +15,8 @@ const Header = () => {
                  src="/assets/images/drunkcy.svg" width={128} height={38}
                  alt="Bar Buzz Ames Logo"
                 />
+               
             </Link>
-
             <SignedIn>
                 <nav className="md:flex-between hidden w-full max-w-xs">
                     <NavItems />
