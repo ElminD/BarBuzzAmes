@@ -26,7 +26,7 @@ module.exports = withUt({
           foreground: 'hsl(var(--primary-foreground))',
         },
         coral: {
-          500: '#C8102E',
+          500: '#15BF59',
         },
 
         grey: {

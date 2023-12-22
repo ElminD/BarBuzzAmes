@@ -69,6 +69,14 @@ export type GetEventsByUserParams = {
   page: number
 }
 
+export type GetEventsByCurrentDateParams = {
+  startDateTime: string
+  todayDateStart: Date
+  todayEndDate: Date
+  limit?: number
+  page: number
+}
+
 export type GetRelatedEventsByCategoryParams = {
   categoryId: string
   eventId: string

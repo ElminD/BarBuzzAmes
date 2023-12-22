@@ -15,6 +15,7 @@ import {
   GetAllEventsParams,
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
+  GetEventsByCurrentDateParams,
 } from '@/types'
 
 const getCategoryByName = async (name: string) => {
@@ -159,6 +160,34 @@ export async function getRelatedEventsByCategory({
     const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] }
 
     const eventsQuery = Event.find(conditions)
+      .sort({ createdAt: 'desc' })
+      .skip(skipAmount)
+      .limit(limit)
+
+    const events = await populateEvent(eventsQuery)
+    const eventsCount = await Event.countDocuments(conditions)
+
+    return { data: JSON.parse(JSON.stringify(events)), totalPages: Math.ceil(eventsCount / limit) }
+  } catch (error) {
+    handleError(error)
+  }
+}
+
+// GET EVENTS BY DATE: EVENTS ON TODAY
+export async function getEventsByCurrentDate({ 
+  startDateTime, 
+  todayDateStart,
+  todayEndDate,
+  limit = 3, 
+  page 
+}: GetEventsByCurrentDateParams) {
+  try {
+    await connectToDatabase()
+
+    const conditions = { startDateTime: startDateTime }
+    const skipAmount = (page - 1) * limit
+
+    const eventsQuery = Event.find({startDateTime: {$gte: todayDateStart, $lt: todayEndDate}})
       .sort({ createdAt: 'desc' })
       .skip(skipAmount)
       .limit(limit)
