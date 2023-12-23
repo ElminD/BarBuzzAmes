@@ -1,6 +1,7 @@
 import Footer from "@/components/shared/Footer"
 import Header from "@/components/shared/Header"
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function RootLayout({
     children,
@@ -12,6 +13,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Analytics />
+        <SpeedInsights />
         <Footer />
       </div>
     )
