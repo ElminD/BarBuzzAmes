@@ -13,7 +13,6 @@ export default authMiddleware({
     '/api/webhook/clerk',
     '/api/webhook/stripe',
     '/api/uploadthing',
-    '/_vercel/insights/*'
   ]
 });
  
