@@ -12,7 +12,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const searchText = (searchParams?.query as string) || '';
   const category = (searchParams?.category as string) || '';
 
-  const date = new Date().toISOString().split('T')[0];
+  const date = new Date();
 
   const events = await getAllEvents({
     query: searchText,

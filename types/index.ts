@@ -70,7 +70,7 @@ export type GetEventsByUserParams = {
 }
 
 export type GetEventsByCurrentDateParams = {
-  startDateTime: string
+  startDateTime: Date
   todayDateStart: Date
   todayEndDate: Date
   limit?: number
