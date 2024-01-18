@@ -35,8 +35,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const initialValues = event && type === 'Update' 
     ? { 
       ...event, 
-      startDateTime: new Date(event.startDateTime), 
-      endDateTime: new Date(event.endDateTime) 
     }
     : eventDefaultValues;
   const router = useRouter();
