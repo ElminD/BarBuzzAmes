@@ -67,6 +67,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           path: '/profile'
         })
 
+        console.log(newEvent.startDateTime);
+        console.log(newEvent.endDateTime);
+
         if(newEvent) {
           form.reset();
           router.push(`/events/${newEvent._id}`)
