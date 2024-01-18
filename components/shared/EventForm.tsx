@@ -35,6 +35,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const initialValues = event && type === 'Update' 
     ? { 
       ...event, 
+      startDateTime: new Date(event.startDateTime), 
+      endDateTime: new Date(event.endDateTime) 
     }
     : eventDefaultValues;
   const router = useRouter();
@@ -55,6 +57,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       if(!uploadedImages) {
         return
       }
+
       uploadedImageUrl = uploadedImages[0].url
     }
 
@@ -65,9 +68,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           userId,
           path: '/profile'
         })
-
-        console.log(newEvent.startDateTime);
-        console.log(newEvent.endDateTime);
 
         if(newEvent) {
           form.reset();
