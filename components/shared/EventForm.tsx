@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 
-import el from "date-fns/locale/el"; // the locale you want
+import el from "date-fns/locale/en-US"; // the locale you want
 registerLocale("el", el); // register it with the name you want
 
 
