@@ -209,7 +209,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date) => field.onChange(date.toLocaleTimeString())} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
@@ -241,7 +241,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date) => field.onChange(date.toLocaleTimeString())} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
