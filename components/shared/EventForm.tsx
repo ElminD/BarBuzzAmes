@@ -62,10 +62,17 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url
     }
 
+    let timezoneOffset = new Date().getTimezoneOffset();
+    timezoneOffset *= 60 * 1000;
+
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl, startDateTime: new Date(values.startDateTime.toLocaleString()), endDateTime: new Date(values.endDateTime.toLocaleString()) },
+          event: { ...values, 
+            imageUrl: uploadedImageUrl, 
+            startDateTime: new Date(new Date(values.startDateTime).getTime() + timezoneOffset), 
+            endDateTime: new Date(new Date(values.endDateTime).getTime() + timezoneOffset)  
+          },
           userId,
           path: '/profile'
         })
