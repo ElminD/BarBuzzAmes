@@ -62,24 +62,25 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url
     }
 
-    function convertTo24Hour(time: string) {
-      let [hours, minutes] = time.split(':');
-      if (parseInt(hours) < 12) {
-        hours += 12;
-      }
-      return `${hours}:${minutes}`;
+    function getLocalDate(dateString: string | number | Date) {
+      let date = new Date(dateString);
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
     }
-
+    
     let timezoneOffset = new Date().getTimezoneOffset();
     timezoneOffset *= 60 * 1000;
 
     if(type === 'Create') {
       try {
+        let timezoneOffset = new Date().getTimezoneOffset();
+        timezoneOffset *= 60 * 1000;
+
         const newEvent = await createEvent({
-          event: { ...values, 
+          event: { 
+            ...values, 
             imageUrl: uploadedImageUrl, 
-            startDateTime: new Date(new Date(convertTo24Hour(values.startDateTime.toString())).getTime() + timezoneOffset),
-            endDateTime: new Date(new Date(convertTo24Hour(values.endDateTime.toString())).getTime() + timezoneOffset)  
+            startDateTime: getLocalDate(values.startDateTime), 
+            endDateTime: getLocalDate(values.endDateTime) 
           },
           userId,
           path: '/profile'
