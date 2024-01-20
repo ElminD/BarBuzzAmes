@@ -218,8 +218,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
                         wrapperClassName="datePicker"
-                      />
-                      {hydrated ? '' : ' (UTC)'}
+                        >
+                        {hydrated ? '' : ' (UTC)'}
+                        </DatePicker>
                       </Suspense>
                     </div>
 
@@ -253,8 +254,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
                         wrapperClassName="datePicker"
-                      />
-                      {hydrated ? '' : ' (UTC)'}
+                      >
+                       {hydrated ? '' : ' (UTC)'}
+                      </DatePicker>
                       </Suspense>
                     </div>
 
