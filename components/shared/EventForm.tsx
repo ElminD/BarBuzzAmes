@@ -21,6 +21,8 @@ import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
+import { useHydration } from '../../hooks/useHydration'
+import { Suspense } from 'react'
 
 import el from "date-fns/locale/en-US"; // the locale you want
 registerLocale("el", el); // register it with the name you want
@@ -34,6 +36,7 @@ type EventFormProps = {
 }
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
+  const hydrated = useHydration()
   const [files, setFiles] = useState<File[]>([])
   const initialValues = event && type === 'Update' 
     ? { 
@@ -206,15 +209,18 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         className="filter-grey"
                       />
                       <p className="ml-3 whitespace-nowrap text-grey-600">Start Date:</p>
+                      <Suspense key={hydrated ? 'local' : 'utc'}>
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date.toLocaleTimeString())} 
+                        onChange={(date: Date) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
                         wrapperClassName="datePicker"
                       />
+                      {hydrated ? '' : ' (UTC)'}
+                      </Suspense>
                     </div>
 
                   </FormControl>
@@ -238,15 +244,18 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         className="filter-grey"
                       />
                       <p className="ml-3 whitespace-nowrap text-grey-600">End Date:</p>
+                      <Suspense key={hydrated ? 'local' : 'utc'}>
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date.toLocaleTimeString())} 
+                        onChange={(date: Date) => field.onChange(date)} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
                         wrapperClassName="datePicker"
                       />
+                      {hydrated ? '' : ' (UTC)'}
+                      </Suspense>
                     </div>
 
                   </FormControl>
