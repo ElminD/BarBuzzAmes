@@ -43,7 +43,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             <p className="p-regular-20 md:p-regular-24">Keep up to date on all the Welch Ave bars</p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
               <Link href="#events">
-                Explore Now
+                View Deals
               </Link>
             </Button>
           </div>
@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
       </section> 
 
       <section id="today"className="wrapper my-4 flex flex-col gap-8 md:gap-12 ">
-      <h2 className="h2-bold ">Todays Events</h2>
+      <h2 className="h2-bold ">Today's Deals</h2>
         <div>
           <Collection 
             data={todayEvents?.data}
