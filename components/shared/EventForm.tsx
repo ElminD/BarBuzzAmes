@@ -21,6 +21,7 @@ import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
+import { formatInTimeZone } from 'date-fns-tz'
 
 
 
@@ -51,6 +52,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
+    formatInTimeZone(values.startDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
+    formatInTimeZone(values.endDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
 
     if(files.length > 0) {
       const uploadedImages = await startUpload(files)
