@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { FileUploader } from "./FileUploader"
 import { useState } from "react"
 import Image from "next/image"
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import { useUploadThing } from '@/lib/uploadthing'
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,6 +21,8 @@ import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
+import { formatInTimeZone } from 'date-fns-tz'
+
 
 
 type EventFormProps = {
@@ -50,6 +52,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
+    formatInTimeZone(values.startDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
+    formatInTimeZone(values.endDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
 
     if(files.length > 0) {
       const uploadedImages = await startUpload(files)
@@ -64,7 +68,12 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
+          event: { 
+            ...values, 
+            imageUrl: uploadedImageUrl, 
+            startDateTime: values.startDateTime, 
+            endDateTime: values.endDateTime,
+          },
           userId,
           path: '/profile'
         })
@@ -210,7 +219,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
                         wrapperClassName="datePicker"
-                      />
+                        />
                     </div>
 
                   </FormControl>
@@ -235,6 +244,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       />
                       <p className="ml-3 whitespace-nowrap text-grey-600">End Date:</p>
                       <DatePicker 
+                        locale="el"
                         selected={field.value} 
                         onChange={(date: Date) => field.onChange(date)} 
                         showTimeSelect
