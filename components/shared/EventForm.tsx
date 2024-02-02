@@ -52,8 +52,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
-    formatInTimeZone(values.startDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
-    formatInTimeZone(values.endDateTime, 'America/Chicago', 'MM/dd/yyyy h:mm aa')
 
     if(files.length > 0) {
       const uploadedImages = await startUpload(files)
@@ -214,7 +212,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <p className="ml-3 whitespace-nowrap text-grey-600">Start Date:</p>
                       <DatePicker 
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date) => field.onChange(formatInTimeZone(date, 'America/Chicago', 'MM/dd/yyyy h:mm aa'))}
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
@@ -246,7 +244,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(date)} 
+                        onChange={(date: Date) => field.onChange(formatInTimeZone(date, 'America/Chicago', 'MM/dd/yyyy h:mm aa'))} 
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
