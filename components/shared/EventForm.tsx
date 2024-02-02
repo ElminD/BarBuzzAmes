@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 import { formatInTimeZone } from 'date-fns-tz'
+import { enUS } from "date-fns/locale"
 
 
 
@@ -62,6 +63,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
       uploadedImageUrl = uploadedImages[0].url
     }
+
+
 
     if(type === 'Create') {
       try {
@@ -212,7 +215,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <p className="ml-3 whitespace-nowrap text-grey-600">Start Date:</p>
                       <DatePicker 
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(formatInTimeZone(date, 'America/Chicago', 'MM/dd/yyyy h:mm aa'))}
+                        onChange={(date: Date) => field.onChange(date)}
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
@@ -244,7 +247,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       <DatePicker 
                         locale="el"
                         selected={field.value} 
-                        onChange={(date: Date) => field.onChange(formatInTimeZone(date, 'America/Chicago', 'MM/dd/yyyy h:mm aa'))} 
+                        onChange={(date: Date) => field.onChange(date)}
                         showTimeSelect
                         timeInputLabel="Time:"
                         dateFormat="MM/dd/yyyy h:mm aa"
