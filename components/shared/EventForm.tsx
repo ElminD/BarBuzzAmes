@@ -1,5 +1,3 @@
-"use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -62,25 +60,14 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url
     }
 
-    function getLocalDate(dateString: string | number | Date) {
-      let date = new Date(dateString);
-      return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
-    }
-    
-    let timezoneOffset = new Date().getTimezoneOffset();
-    timezoneOffset *= 60 * 1000;
-
     if(type === 'Create') {
       try {
-        let timezoneOffset = new Date().getTimezoneOffset();
-        timezoneOffset *= 60 * 1000;
-
         const newEvent = await createEvent({
           event: { 
             ...values, 
             imageUrl: uploadedImageUrl, 
-            startDateTime: getLocalDate(values.startDateTime), 
-            endDateTime: getLocalDate(values.endDateTime) 
+            startDateTime: values.startDateTime, 
+            endDateTime: values.endDateTime,
           },
           userId,
           path: '/profile'
