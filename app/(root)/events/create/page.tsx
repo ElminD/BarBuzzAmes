@@ -1,5 +1,8 @@
-import EventForm from "@/components/shared/EventForm"
 import { auth } from "@clerk/nextjs";
+import dynamic from 'next/dynamic'
+ 
+const EventForm = dynamic(() => import("@/components/shared/EventForm"), { ssr: false })
+ 
 
 const CreateEvent = () => {
   const { sessionClaims } = auth();
