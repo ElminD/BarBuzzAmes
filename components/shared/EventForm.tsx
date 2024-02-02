@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { FileUploader } from "./FileUploader"
 import { useState } from "react"
 import Image from "next/image"
-import DatePicker, { registerLocale } from "react-datepicker";
+import dynamic from "next/dynamic";
 import { useUploadThing } from '@/lib/uploadthing'
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -34,6 +34,7 @@ type EventFormProps = {
 }
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
+  const DatePicker = dynamic(() => import('react-datepicker'), { ssr: false });
   const [files, setFiles] = useState<File[]>([])
   const initialValues = event && type === 'Update' 
     ? { 
